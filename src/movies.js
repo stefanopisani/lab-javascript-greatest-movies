@@ -27,8 +27,17 @@ const ratesAverage = (arr) => {
     if (ratesArr.length === 0) {
         return 0;
     }
-    const notRounded = ratesArr.reduce((prev, curr) => prev + curr) / (ratesArr.length);
-    return Math.round(notRounded * 100) / 100;
+
+    const notRounded = ratesArr.reduce((prev, curr) => {
+        if (curr) {
+            return prev + curr;
+        } else {
+            return prev;
+        }
+    });
+
+    return Number((notRounded / arr.length).toFixed(2));
+    //return Math.round(notRounded * 100) / 100;
 };
 
 
@@ -47,6 +56,32 @@ const dramaMoviesRate = (arr) => {
 
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
+
+const orderByYear = (arr) => {
+    /*  const movieYear = arr.map(onlyYear => onlyYear.year);
+      const movieY = [];
+      movieYear.forEach(item => movieY.push({
+          year: item
+      }));
+      return movieY.sort((a, b) => a - b);*/
+    arr.sort((a, b) => {
+        if (a.year > b.year) {
+            return 1;
+        } else if (a.year < b.year) {
+            return -1;
+        } else {
+            if (a.title > b.title) {
+                return 1;
+            } else if (a.title < b.title) {
+                return -1;
+            }
+            return 0;
+        }
+    });
+    return arr.map((item) => item);
+};
+
+
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 
